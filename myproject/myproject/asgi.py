@@ -1,19 +1,15 @@
 # myproject/asgi.py
-
 import os
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from django.urls import path
-from myapp.consumers import PlayerPoolConsumer
+from myapp.routing import websocket_urlpatterns  # 导入路由配置
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
-        URLRouter([
-            path("ws/player_pool/", PlayerPoolConsumer.as_asgi()),
-        ])
+        URLRouter(websocket_urlpatterns)  # 使用 websocket_urlpatterns
     ),
 })

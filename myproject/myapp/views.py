@@ -27,3 +27,11 @@ def menu(request):
 
 def book(request):
     return HttpResponse("Make a booking")
+
+def get_players(request):
+    players = {
+        'player1': 'John',
+        'player2': 'Jane',
+        'player3': 'Doe'
+    }
+    return JsonResponse(players)

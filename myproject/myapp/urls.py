@@ -1,6 +1,13 @@
 from django.urls import reverse, path, re_path
 from . import views
 from .views import get_players
+from django.urls import re_path
+from .consumers import PlayerPoolConsumer
+
+websocket_urlpatterns = [
+    re_path(r'ws/player_pool/$', PlayerPoolConsumer.as_asgi()),
+]
+
 
 urlpatterns = [
     path('', views.home),
